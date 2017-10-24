@@ -6,7 +6,8 @@ Created on Fri Apr  7 19:12:47 2017
 @author: roger
 """
 import sys
-sys.path.append("/Users/pillowlab/Dropbox/pyglm-master")
+sys.path.append("/Users/roger/Dropbox/pyglm-master")
+sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/libs")
 
 import numpy as np
 np.random.seed(10)
@@ -30,9 +31,9 @@ plt.ion()
 T = 2000  # Number of time bins to generate
 N = 2  # Number of neurons
 B = 1  # Number of "basis functions"
-L = 20  # Autoregressive window of influence
+L = 10  # Autoregressive window of influence
 
-basis = cosine_basis(B=B, L=L, a=1.0 / 20) / L
+basis = cosine_basis(B=B, L=L, a=1.0 / 10) / L
 
 # Generate some data from a model with self inhibition
 # The model structure has the info for the network and regression we used

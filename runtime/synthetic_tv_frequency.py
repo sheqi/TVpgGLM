@@ -8,6 +8,7 @@ Created on Fri Apr  7 19:12:47 2017
 import sys
 
 sys.path.append("/Users/roger/Dropbox/pyglm-master")
+sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/libs")
 
 import numpy as np
 
