@@ -47,6 +47,7 @@ for m in range(N):
     for n in range(N):
         true_model.regressions[m].W[n, :] = true_model.regressions[m].a[n] * np.random.multivariate_normal(
             true_model.network.mu_W[m, n], true_model.network.sigma_W[m, n])
+
 for k in range(N):
     true_model.regressions[k].a[k] = True
     true_model.regressions[k].W[k,:] = -3
