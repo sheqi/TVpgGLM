@@ -17,7 +17,7 @@ sns.set_context("paper", rc = paper_rc)
 plt.ion()
 
 # plot: sythetic_true_location
-with open('results/sythetic_true_location1.pickle', 'rb') as f:
+with open('TVpgGLM/results/sythetic_true_location1.pickle', 'rb') as f:
     lps, W_true, W_smpls, A_smpls, L_true, L_smples = pickle.load(f)
 
 N = 10

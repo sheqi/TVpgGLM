@@ -6,7 +6,7 @@ Created on Fri Apr  7 19:13:59 2017
 @author: roger
 """
 import sys;
-sys.path.append("/Users/pillowlab/Dropbox/pyglm-master/")
+sys.path.append("/Users/roger/Dropbox/pyglm-master/")
 import networks_tv
 import regression_tv
 

@@ -57,7 +57,6 @@ def draw_curvy_network(G, pos, ax, node_radius=0.02, node_color='b', node_edge_c
 
     return e
 
-
 if __name__ == "__main__":
     from hips.plotting.colormaps import harvard_colors
     color = harvard_colors()[0:10]

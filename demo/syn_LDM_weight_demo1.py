@@ -174,7 +174,7 @@ plt.figure()
 plt.plot(lpf_smpls[1:])
 
 # Saving the objects:
-#with open('results/sythetic_true_location1.pickle', 'wb') as f:
+#with open('TVpgGLM/results/sythetic_true_location1.pickle', 'wb') as f:
 #   pickle.dump([lps, W, W_smpls, A_smpls, L_D, L_smples], f)
 
 

@@ -90,10 +90,10 @@ class _FixedWeightsMixin(_NetworkModel):
         self._sigma = expand_cov(sigma, (N, T, N, B, B))
 
         # initialize sigma
-        self._sigma[0, :, 0, :, :] = 0.001
-        self._sigma[1, :, 1, :, :] = 0.001
-        self._sigma[1, :, 0, :, :] = 0.01
-        self._sigma[0, :, 1, :, :] = 0.001
+        self._sigma[0, :, 0, :, :] = 0.015
+        self._sigma[1, :, 1, :, :] = 0.015
+        self._sigma[1, :, 0, :, :] = 0.015
+        self._sigma[0, :, 1, :, :] = 0.015
 
         if (mu_self is not None) and (sigma_self is not None):
             self._mu[np.arange(N), :, np.arange(N), :] = expand_scalar(mu_self, (N, T, B))
