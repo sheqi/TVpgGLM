@@ -1,7 +1,8 @@
-import sys;
+import sys
 
 sys.path.append("/Users/Roger/Dropbox/pyglm-master/pyglm/")
 sys.path.append("/Users/Roger/Dropbox/pyglm-master/pyglm/utils/")
+
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -89,3 +90,6 @@ ax2.set_title('True & Inferred Locations')
 fig.subplots_adjust(left=None, bottom=None, right=None, top=None,
                     wspace=0.5, hspace=None)
 
+plt.subplots_adjust(left=0.1, right=0.1, bottom=0.1, above=0.1)
+# Save the figure
+fig.savefig("TVpgGLM/plot/plot1.pdf")

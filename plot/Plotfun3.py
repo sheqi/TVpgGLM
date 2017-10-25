@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import xcorr
 from plot_networks import draw_curvy_network
 import seaborn as sns
+from hips.plotting.colormaps import harvard_colors
 
 sns.set_style("white")
 paper_rc = {'lines.linewidth': 1, 'lines.markersize': 10,
@@ -16,10 +17,12 @@ paper_rc = {'lines.linewidth': 1, 'lines.markersize': 10,
 sns.set_context("paper", rc = paper_rc)
 plt.ion()
 
-# illustration (p1)
-from hips.plotting.colormaps import harvard_colors
 color = harvard_colors()[0:10]
 
+with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'rb') as f:
+    fr_true, w_true, fr_est, w_est = pickle.load(f)
+
+# illustration (p1)
 G = nx.MultiDiGraph([(1, 1), (1, 2), (2, 1), (2, 2)])
 pos = nx.spring_layout(G)
 ax = plt.gca()
@@ -40,15 +43,13 @@ plt.show()
 
 
 # Cross-correlation analysis (p4)
-with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'rb') as f:
-    fr_true, w_true, fr_est, w_est = pickle.load(f)
-
 N = 10
 N_smpls = 50
 
 f_true = xcorr.xcorr(fr_true, dtmax=20)
 f_est = xcorr.xcorr(fr_est, dtmax=20)
 
+plt.figure()
 fig, axs = plt.subplots(N, N, sharey=True)
 
 for i in range(N):
@@ -59,6 +60,7 @@ for i in range(N):
         axs[i, j].set_yticklabels([])
 
 # True and estimated weights (p5)
+plt.figure()
 fig, axs = plt.subplots(N, N)
 
 for i in range(N):
