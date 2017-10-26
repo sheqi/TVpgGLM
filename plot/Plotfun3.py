@@ -1,7 +1,8 @@
-# plot simulation results of tv_model
+# Plot simulation results of tv_model
 import sys
 sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/utils")
 
+import numpy as np
 import pickle
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -20,32 +21,75 @@ plt.ion()
 color = harvard_colors()[0:10]
 
 with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'rb') as f:
-    fr_true, w_true, fr_est, w_est = pickle.load(f)
+    fr_true, w_true, fr_est, fr_std, w_est, Y= pickle.load(f)
 
-# illustration (p1)
-G = nx.MultiDiGraph([(1, 1), (1, 2), (2, 1), (2, 2)])
-pos = nx.spring_layout(G)
-ax = plt.gca()
-edge_width = [5, -5, -5, 5]
-edge_color  = [color[0], color[1], color[1], color[0]]
-draw_curvy_network(G, pos, ax, node_color='k',
-                   node_edge_color='k', edge_width=edge_width,
-                   edge_color=edge_color)
-ax.autoscale()
-plt.axis('equal')
-plt.axis('off')
-plt.show()
-
-# raster plot-true (p2)
-
-
-# raster plot-estimate (p3)
-
-
-# Cross-correlation analysis (p4)
 N = 10
 N_smpls = 50
 
+#####################
+##Illustration (p1)##
+#####################
+
+G = nx.MultiDiGraph([(x,y) for x in range(N) for y in range(N)])
+pos = nx.circular_layout(G)
+
+# True weights extration
+def _circular_layout(w, t, ax):
+    dT = 200  # interval of weights
+    w_true_smpls = w[:,np.arange(t,1000,dT),:,0] # [time, out, in]
+    edge_width = 50*w_true_smpls[0,:,:].reshape(10*10,)
+
+    edge_color = np.zeros((100,3))
+    edge_color[np.where(edge_width>0)] = color[1]
+    edge_color[np.where(edge_width<0)] = color[0]
+
+    return draw_curvy_network(G, pos, ax, node_color='k',
+                       node_edge_color='k', edge_width=edge_width,
+                       edge_color=edge_color)
+
+for t in range(5):
+    plt.figure(t)
+    ax = plt.gca()
+    #_circular_layout(w=w_est[N_smpls//2:].mean(0), t=t, ax=ax)
+    _circular_layout(w=w_true, t=t, ax=ax)
+    ax.autoscale()
+    plt.axis('equal')
+    plt.axis('off')
+    plt.title('t='+str(200*(t+1)))
+    plt.show()
+    plt.tight_layout()
+    plt.savefig("TVpgGLM/plot/syn_tv_N10_T"+str(200*(t+1))+".pdf")
+
+##############################
+##Raster plot and rates (p2)##
+##############################
+pltslice=slice(0, 500)
+fig,axs = plt.subplots(2,2)
+k = 0
+for i in range(2):
+    for j in range(2):
+        tn = np.where(Y[pltslice, n])[0]
+        axs[i,j].plot(tn, np.ones_like(tn), 'ko', markersize=4)
+        axs[i,j].plot(fr_est[pltslice,k])
+        axs[i, j].plot(fr_true[pltslice, k])
+        # sausage_plot(np.arange(pltslice.start, pltslice.stop),
+        #             fr_est[pltslice,n],
+        #             #fr_true[pltslice, n],
+        #             3*fr_std[pltslice,n],
+        #             sgax=axs[n],
+        #             alpha=0.5)
+        axs[i,j].set_ylim(-0.05, 1.1)
+        axs[i,j].set_ylabel("$\lambda_{}(t)$".format(n + 1))
+        axs[i,j].set_title("Firing Rates")
+        axs[i,j].set_xlabel("Time")
+        k = k + 1
+plt.tight_layout()
+plt.tight_layout()
+fig.savefig("TVpgGLM/plot/syn_tv_N10_raster.pdf")
+
+#####################################
+### Cross-correlation analysis (p3)##
+#####################################
 f_true = xcorr.xcorr(fr_true, dtmax=20)
 f_est = xcorr.xcorr(fr_est, dtmax=20)
 
@@ -59,7 +103,12 @@ for i in range(N):
         axs[i, j].set_xticklabels([])
         axs[i, j].set_yticklabels([])
 
-# True and estimated weights (p5)
+fig.savefig("TVpgGLM/plot/syn_tv_N10_xcorr.pdf")
+
+
+###################################
+##True and estimated weights (p4)##
+###################################
 plt.figure()
 fig, axs = plt.subplots(N, N)
 
@@ -70,3 +119,6 @@ for i in range(N):
         axs[i,j].legend(loc="upper center", ncol=2, prop={'size':15})
         axs[i,j].set_xticklabels([])
         axs[i,j].set_yticklabels([])
+
+plt.tight_layout()
+fig.savefig("TVpgGLM/plot/syn_tv_N10_weights.pdf")
