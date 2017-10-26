@@ -13,7 +13,7 @@ from hips.plotting.colormaps import harvard_colors
 
 sns.set_style("white")
 paper_rc = {'lines.linewidth': 1, 'lines.markersize': 10,
-            'font.size': 15, 'axes.labelsize':15,
+            'font.size': 15, 'axes.labelsize':15, 'axes.titlesize':15,
             'xtick.labelsize': 15, 'ytick.labelsize': 15}
 sns.set_context("paper", rc = paper_rc)
 plt.ion()
@@ -26,9 +26,9 @@ with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'rb') as f:
 N = 10
 N_smpls = 50
 
-#####################
-##Illustration (p1)##
-#####################
+########################################################
+##Illustration: layout for true/estimated network (p1)##
+########################################################
 
 G = nx.MultiDiGraph([(x,y) for x in range(N) for y in range(N)])
 pos = nx.circular_layout(G)
@@ -50,8 +50,8 @@ def _circular_layout(w, t, ax):
 for t in range(5):
     plt.figure(t)
     ax = plt.gca()
-    #_circular_layout(w=w_est[N_smpls//2:].mean(0), t=t, ax=ax)
-    _circular_layout(w=w_true, t=t, ax=ax)
+    _circular_layout(w=w_est[N_smpls//2:].mean(0), t=t, ax=ax)
+    #_circular_layout(w=w_true, t=t, ax=ax)
     ax.autoscale()
     plt.axis('equal')
     plt.axis('off')
@@ -68,10 +68,10 @@ fig,axs = plt.subplots(2,2)
 k = 0
 for i in range(2):
     for j in range(2):
-        tn = np.where(Y[pltslice, n])[0]
+        tn = np.where(Y[pltslice, k])[0]
         axs[i,j].plot(tn, np.ones_like(tn), 'ko', markersize=4)
-        axs[i,j].plot(fr_est[pltslice,k])
-        axs[i, j].plot(fr_true[pltslice, k])
+        axs[i,j].plot(fr_est[pltslice,k],color=color[0])
+        axs[i,j].plot(fr_true[pltslice, k],color=color[1])
         # sausage_plot(np.arange(pltslice.start, pltslice.stop),
         #             fr_est[pltslice,n],
         #             #fr_true[pltslice, n],
@@ -79,13 +79,12 @@ for i in range(2):
         #             sgax=axs[n],
         #             alpha=0.5)
         axs[i,j].set_ylim(-0.05, 1.1)
-        axs[i,j].set_ylabel("$\lambda_{}(t)$".format(n + 1))
+        axs[i,j].set_ylabel("$\lambda_{}(t)$".format(k + 1))
         axs[i,j].set_title("Firing Rates")
         axs[i,j].set_xlabel("Time")
         k = k + 1
 plt.tight_layout()
-plt.tight_layout()
-fig.savefig("TVpgGLM/plot/syn_tv_N10_raster.pdf")
+fig.savefig("TVpgGLM/fig/syn_tv_N10_raster.pdf")
 
 #####################################
 ### Cross-correlation analysis (p3)##
@@ -98,12 +97,12 @@ fig, axs = plt.subplots(N, N, sharey=True)
 
 for i in range(N):
     for j in range(N):
-        axs[i, j].plot(f_true[i, j, :])
-        axs[i, j].plot(f_est[i, j, :])
+        axs[i, j].plot(f_true[i, j, :],color=color[0])
+        axs[i, j].plot(f_est[i, j, :],color=color[1])
         axs[i, j].set_xticklabels([])
         axs[i, j].set_yticklabels([])
 
-fig.savefig("TVpgGLM/plot/syn_tv_N10_xcorr.pdf")
+fig.savefig("TVpgGLM/fig/syn_tv_N10_xcorr.pdf")
 
 
 ###################################
@@ -121,4 +120,4 @@ for i in range(N):
         axs[i,j].set_yticklabels([])
 
 plt.tight_layout()
-fig.savefig("TVpgGLM/plot/syn_tv_N10_weights.pdf")
+fig.savefig("TVpgGLM/fig/syn_tv_N10_weights.pdf")

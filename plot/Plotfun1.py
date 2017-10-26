@@ -13,7 +13,7 @@ import seaborn as sns
 
 sns.set_style("white")
 paper_rc = {'lines.linewidth': 2.5, 'lines.markersize': 10, 'font.size': 15,
-            'axes.labelsize':15, 'xtick.labelsize': 15, 'ytick.labelsize': 15}
+            'axes.labelsize':15, 'axes.titlesize':15, 'xtick.labelsize': 15, 'ytick.labelsize': 15}
 sns.set_context("paper", rc = paper_rc)
 plt.ion()
 
@@ -89,7 +89,5 @@ ax2.set_title('True & Inferred Locations')
 
 fig.subplots_adjust(left=None, bottom=None, right=None, top=None,
                     wspace=0.5, hspace=None)
-
-plt.subplots_adjust(left=0.1, right=0.1, bottom=0.1, above=0.1)
 # Save the figure
-fig.savefig("TVpgGLM/plot/plot1.pdf")
+fig.savefig("TVpgGLM/fig/plot1.pdf")

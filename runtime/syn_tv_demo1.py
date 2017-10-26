@@ -67,7 +67,7 @@ def _update(m, itr):
     m.resample_model()
     return _collect(m)
 
-N_samples = 10
+N_samples = 100
 samples = []
 for itr in progprint_xrange(N_samples):
     samples.append(_update(test_model, itr))
@@ -86,5 +86,5 @@ fig, _, _ = plot_glm(Y, W_mean[:, 0, :, :], A_mean, fr_mean,
                     std_firingrates=3 * fr_std, title="Posterior Mean")
 
 # Saving the objects:
-with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'wb') as f:
-    pickle.dump([true_model.means[0], true_model.weights, fr_mean, fr_std, W_smpls, Y], f)
+#with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'wb') as f:
+#    pickle.dump([true_model.means[0], true_model.weights, fr_mean, fr_std, W_smpls, Y], f)
