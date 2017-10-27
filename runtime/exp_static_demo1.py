@@ -70,6 +70,9 @@ L_mean = L_smpls[N_samples//2:].mean(0)
 for i in range(N_samples):
     R = compute_optimal_rotation(L_smpls[i], L_true_norm)
     L_smpls[i] = L_smpls[i].dot(R)
+    # affine translation
+    D_t = np.mean(L_smpls[i], 0) - np.mean(L_true_norm, 0)
+    L_smpls[i] = L_smpls[i] - D_t
 
 # Mean location
 D_est = np.sqrt((L_mean[:,None,:] - L_mean[None,:,:])**2).sum(2)
@@ -84,7 +87,8 @@ fig = plt.figure()
 ax = fig.add_subplot(111, aspect="equal")
 k = 0
 for i in range(N):
-    ax.scatter(L_smpls[-50:, i, 0], L_smpls[-50:, i, 1], s=100, alpha=0.7, color=np.random.rand(3,1))
+    ax.scatter(L_smpls[-50:, i, 0], L_smpls[-50:, i, 1], s=100,
+               alpha=0.7, color=np.random.rand(3,1))
     k += 1
 
 # cross-correlation
@@ -96,6 +100,6 @@ sns.heatmap(W_mean[:,:,0])
 
 # np.save('results/exp1.npy', L_smpls)
 
-# Saving the objects:
+# saving the objects:
 with open('TVpgGLM/results/exp_static_electrode.pickle', 'wb') as f:
-    pickle.dump([lps, W_smpls, A_smpls, b_smpls, L_smpls], f)
+    pickle.dump([lps, W_smpls, A_smpls, b_smpls, L_smpls, L_true_norm, Y, D_mat], f)
