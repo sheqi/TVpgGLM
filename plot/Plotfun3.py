@@ -35,20 +35,23 @@ pos = nx.circular_layout(G)
 
 # True weights extration
 def _circular_layout(w, t, ax):
+    w1 = w
+    t1 = t
+    ax1 = ax
     dT = 200  # interval of weights
-    w_true_smpls = w[:,np.arange(t,1000,dT),:,0] # [time, out, in]
+    w_true_smpls = w1[:,np.arange(t1,1000,dT),:,0] # [time, out, in]
     edge_width = 50*w_true_smpls[0,:,:].reshape(10*10,)
 
     edge_color = np.zeros((100,3))
     edge_color[np.where(edge_width>0)] = color[1]
     edge_color[np.where(edge_width<0)] = color[0]
 
-    return draw_curvy_network(G, pos, ax, node_color='k',
+    return draw_curvy_network(G, pos, ax=ax1, node_color='k',
                        node_edge_color='k', edge_width=edge_width,
                        edge_color=edge_color)
 
 for t in range(5):
-    plt.figure(t)
+    plt.figure()
     ax = plt.gca()
     _circular_layout(w=w_est[N_smpls//2:].mean(0), t=t, ax=ax)
     #_circular_layout(w=w_true, t=t, ax=ax)
@@ -56,9 +59,8 @@ for t in range(5):
     plt.axis('equal')
     plt.axis('off')
     plt.title('t='+str(200*(t+1)))
-    plt.show()
     plt.tight_layout()
-    plt.savefig("TVpgGLM/plot/syn_tv_N10_T"+str(200*(t+1))+".pdf")
+    plt.savefig("TVpgGLM/fig/syn_tv_N10_T"+str(200*(t+1))+".png",dpi=500)
 
 ##############################
 ##Raster plot and rates (p2)##

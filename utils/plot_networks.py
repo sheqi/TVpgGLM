@@ -7,8 +7,7 @@ from matplotlib.patches import FancyArrowPatch, Circle
 import numpy as np
 
 
-def draw_curvy_network(G, pos, ax, node_radius=0.02, node_color='b', node_edge_color='b', node_alpha=0.5,
-                       edge_color=None, edge_alpha=0.5, edge_width=None):
+def draw_curvy_network(G, pos, ax, node_radius=0.02, node_color='b', node_edge_color='b', node_alpha=0.5, edge_color=None, edge_alpha=0.5, edge_width=None):
     assert isinstance(G, nx.Graph), "G must be a NetworkX graph!"
 
     # Convert node colors to lists
@@ -67,7 +66,7 @@ if __name__ == "__main__":
     ax = plt.gca()
     edge_width = [5, 0.9, 0.8, 2, 2, 1, 5]
     edge_color  = [color[0], color[0], color[0], color[0], color[1], color[1], color[1]]
-    draw_curvy_network(G, pos, ax, node_color='k', node_edge_color='k', edge_width=edge_width, edge_color=edge_color)
+    draw_curvy_network(G, pos, ax, node_color='k', node_edge_color='k', edge_width=edge_width,                         edge_color=edge_color)
     ax.autoscale()
     plt.axis('equal')
     plt.axis('off')

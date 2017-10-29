@@ -48,9 +48,11 @@ N_smpls = 100
 fig, ax = plt.subplots(2,2)
 for i in range(2):
     for j in range(2):
-        sns.tsplot(data=W_smpls[N_smpls // 2:, i, :, j, 0], ax=ax[i, j], color=color[1], condition='estimated')
-        ax[i,j].set_xlabel('Time', fontweight="bold")
-        ax[i,j].set_ylabel('Weights', fontweight="bold")
+        sns.tsplot(data=W_smpls[N_smpls // 2:, i, :, j, 0], ax=ax[i, j], color=color[1])
+        if i == 1:
+            ax[i,j].set_xlabel('Time', fontweight="bold")
+        if j == 0:
+            ax[i,j].set_ylabel('Weights', fontweight="bold")
 
 plt.tight_layout()
 plt.savefig("TVpgGLM/fig/exp_tv_N2_weights.pdf")
