@@ -150,10 +150,10 @@ fr_mean3 = fr_smpls[N_samples // 2:].mean(0)
 fr_std3 = fr_smpls[N_samples // 2:].std(0)
 
 # Saving the objects:
-with open('TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
-    pickle.dump([lps1, lps2, lps3,
-                 W_mean1, W_mean2, W_mean3, W_std1, W_std2, W_std3, W_smpls,
-                 Y_1st, Y_2nd, Y_12,
-                 fr_mean1, fr_mean2, fr_mean3, fr_std1, fr_std2, fr_std3
-                 ],f)
+# with open('TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
+#     pickle.dump([lps1, lps2, lps3,
+#                  W_mean1, W_mean2, W_mean3, W_std1, W_std2, W_std3, W_smpls,
+#                  Y_1st, Y_2nd, Y_12,
+#                  fr_mean1, fr_mean2, fr_mean3, fr_std1, fr_std2, fr_std3
+#                  ],f)
 
