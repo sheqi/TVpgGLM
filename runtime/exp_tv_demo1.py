@@ -1,4 +1,8 @@
 # experimental data for tv analysis
+
+# hyperparameter for variance of weights trajectory:
+# 0.0015
+
 import sys
 
 sys.path.append("/Users/roger/Dropbox/pyglm-master")
@@ -25,7 +29,6 @@ Y0 = data['pre_spk_1']
 Y1_0 = data['dur_spk_0']
 Y1_1 = data['dur_spk_1']
 Y2 = data['aft_spk_1']
-
 
 ##############################
 ##static model on first half##
@@ -118,7 +121,7 @@ Y_12 = Y_12.transpose()
 
 T  = 6000
 
-N_samples = 100
+N_samples = 25
 
 test_model = \
     SparseBernoulliGLM_f(T, N, B, basis=basis,
@@ -150,10 +153,10 @@ fr_mean3 = fr_smpls[N_samples // 2:].mean(0)
 fr_std3 = fr_smpls[N_samples // 2:].std(0)
 
 # Saving the objects:
-# with open('TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
-#     pickle.dump([lps1, lps2, lps3,
-#                  W_mean1, W_mean2, W_mean3, W_std1, W_std2, W_std3, W_smpls,
-#                  Y_1st, Y_2nd, Y_12,
-#                  fr_mean1, fr_mean2, fr_mean3, fr_std1, fr_std2, fr_std3
-#                  ],f)
+with open('TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
+    pickle.dump([lps1, lps2, lps3,
+                 W_mean1, W_mean2, W_mean3, W_std1, W_std2, W_std3, W_smpls,
+                 Y_1st, Y_2nd, Y_12,
+                 fr_mean1, fr_mean2, fr_mean3, fr_std1, fr_std2, fr_std3
+                ],f)
 

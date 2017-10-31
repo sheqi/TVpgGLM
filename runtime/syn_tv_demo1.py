@@ -5,6 +5,8 @@ Created on Fri Apr  7 19:12:47 2017
 
 @author: roger
 """
+
+# hyperparameter variance: 0.015
 import sys
 
 sys.path.append("/Users/roger/Dropbox/pyglm-master")

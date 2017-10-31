@@ -44,7 +44,7 @@ plt.savefig("TVpgGLM/fig/exp_static_N2_weights.pdf")
 ####################
 ##tv_model weights##
 ####################
-N_smpls = 100
+N_smpls = 25
 fig, ax = plt.subplots(2,2)
 for i in range(2):
     for j in range(2):
@@ -59,20 +59,15 @@ plt.savefig("TVpgGLM/fig/exp_tv_N2_weights.pdf")
 #################################
 ##plot likelihood via iteration##
 #################################
-fig, ax = plt.subplots(1,3)
-ax[0].plot(lps1)
+fig, ax = plt.subplots(1,2)
+ax[0].plot(lps1+lps2)
 ax[0].set_xlabel("Iteration")
 ax[0].set_ylabel("Log Likelihood")
-ax[0].set_title('Before')
-ax[1].plot(lps2)
+ax[0].set_title('Static: Before + During')
+ax[1].plot(lps3)
 ax[1].set_xlabel("Iteration")
 ax[1].set_ylabel("Log Likelihood")
-ax[1].set_title('During')
-ax[2].plot(lps3)
-ax[2].set_xlabel("Iteration")
-ax[2].set_ylabel("Log Likelihood")
-ax[2].set_title('Before + During')
-plt.tight_layout()
+ax[1].set_title('TV: Before + During')
 plt.savefig("TVpgGLM/fig/exp_N2_likhd.pdf")
 
 
