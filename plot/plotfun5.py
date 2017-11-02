@@ -17,10 +17,10 @@ plt.ion()
 color = harvard_colors()[0:10]
 
 with open('TVpgGLM/results/exp_tv_N2.pickle', 'rb') as f:
-     lps1, lps2, lps3,\
-     W_mean1, W_mean2, W_mean3, W_std1, W_std2, W_std3, W_smpls, \
+     lps1, lps2, lps3, lps4, \
+     W_mean1, W_mean2, W_mean3, W_mean4, W_std1, W_std2, W_std3, W_std4, W_smpls, \
      Y_1st, Y_2nd, Y_12,\
-     fr_mean1, fr_mean2, fr_mean3, fr_std1, fr_std2, fr_std3 = pickle.load(f)
+     fr_mean1, fr_mean2, fr_mean3, fr_meaa4, fr_std1, fr_std2, fr_std3, fr_std4= pickle.load(f)
 
 ########################
 ##static model weights##
@@ -59,15 +59,19 @@ plt.savefig("TVpgGLM/fig/exp_tv_N2_weights.pdf")
 #################################
 ##plot likelihood via iteration##
 #################################
-fig, ax = plt.subplots(1,2)
-ax[0].plot(lps1+lps2)
+fig, ax = plt.subplots(1,3)
+ax[0].plot(lps4)
 ax[0].set_xlabel("Iteration")
 ax[0].set_ylabel("Log Likelihood")
-ax[0].set_title('Static: Before + During')
+ax[0].set_title('Static')
 ax[1].plot(lps3)
 ax[1].set_xlabel("Iteration")
 ax[1].set_ylabel("Log Likelihood")
-ax[1].set_title('TV: Before + During')
+ax[1].set_title('TV')
+ax[2].plot(lps1+lps2)
+ax[2].set_xlabel("Iteration")
+ax[2].set_ylabel("Log Likelihood")
+ax[2].set_title('Static : Before + During')
 plt.savefig("TVpgGLM/fig/exp_N2_likhd.pdf")
 
 

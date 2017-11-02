@@ -110,10 +110,9 @@ A_mean2 = A_smpls[N_samples//2:].mean(0)
 fr_mean2 = fr_smpls[N_samples//2:].mean(0)
 fr_std2 = fr_smpls[N_samples//2:].std(0)
 
-
-###############################
-##Time-varying model analysis##
-###############################
+##########################################################
+##Time-varying model analysis training the whole process##
+##########################################################
 # Create a test model for fitting
 Y_12 = np.vstack((Y0,Y1_0))
 Y_12 = np.vstack((Y_12[:,263],Y_12[:,272]))
@@ -152,11 +151,51 @@ A_mean3 = A_smpls[N_samples // 2:].mean(0)
 fr_mean3 = fr_smpls[N_samples // 2:].mean(0)
 fr_std3 = fr_smpls[N_samples // 2:].std(0)
 
+
+##########################################################
+##Static model analysis training the whole process##
+##########################################################
+Y_12 = np.vstack((Y0,Y1_0))
+Y_12 = np.vstack((Y_12[:,263],Y_12[:,272]))
+Y_12 = Y_12.transpose()
+
+T  = 6000
+
+N_samples = 500
+
+test_model = \
+    test_model = BernoulliGLM(N, basis=basis,
+                              regression_kwargs=dict(rho=1, S_w=10, mu_b=-2.))
+test_model.add_data(Y_12)
+
+def _collect(m):
+    return m.log_likelihood(), m.weights, m.adjacency, m.biases, m.means[0]
+
+
+def _update(m, itr):
+    m.resample_model()
+    return _collect(m)
+
+samples = []
+for itr in progprint_xrange(N_samples):
+    samples.append(_update(test_model, itr))
+
+# Unpack the samples
+samples = zip(*samples)
+lps4, W_smpls1, A_smpls, b_smpls, fr_smpls = tuple(map(np.array, samples))
+
+# Plot the posterior mean and variance
+W_mean4 = W_smpls[N_samples // 2:].mean(0)
+W_std4 = W_smpls[N_samples//2 :].std(0)
+A_mean4 = A_smpls[N_samples // 2:].mean(0)
+fr_mean4 = fr_smpls[N_samples // 2:].mean(0)
+fr_std4 = fr_smpls[N_samples // 2:].std(0)
+
 # Saving the objects:
 with open('TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
-    pickle.dump([lps1, lps2, lps3,
-                 W_mean1, W_mean2, W_mean3, W_std1, W_std2, W_std3, W_smpls,
+    pickle.dump([lps1, lps2, lps3, lps4,
+                 W_mean1, W_mean2, W_mean3, W_mean4, W_std1, W_std2, W_std3, W_std4, W_smpls,
                  Y_1st, Y_2nd, Y_12,
-                 fr_mean1, fr_mean2, fr_mean3, fr_std1, fr_std2, fr_std3
+                 fr_mean1, fr_mean2, fr_mean3, fr_mean4, fr_std1, fr_std2, fr_std3, fr_std4
                 ],f)
 
