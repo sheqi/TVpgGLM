@@ -44,7 +44,7 @@ plt.savefig("TVpgGLM/fig/exp_static_N2_weights.pdf")
 ####################
 ##tv_model weights##
 ####################
-N_smpls = 25
+N_smpls = 10
 fig, ax = plt.subplots(2,2)
 for i in range(2):
     for j in range(2):

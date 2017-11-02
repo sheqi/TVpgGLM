@@ -37,7 +37,7 @@ T = 3000
 B = 1
 N = 2
 L = 10
-Y_1st = np.vstack((Y0[:,263],Y0[:,272]))
+Y_1st = np.vstack((Y0[:,263],Y0[:,273]))
 Y_1st = Y_1st.transpose()
 
 basis = cosine_basis(B=B, L=L) / L
@@ -75,7 +75,7 @@ fr_std1 = fr_smpls[N_samples//2:].std(0)
 ###############################
 ##static model on second half##
 ###############################
-Y_2nd = np.vstack((Y1_0[:,263],Y1_0[:,272]))
+Y_2nd = np.vstack((Y1_0[:,263],Y1_0[:,273]))
 Y_2nd = Y_2nd.transpose()
 
 basis = cosine_basis(B=B, L=L) / L
@@ -115,12 +115,12 @@ fr_std2 = fr_smpls[N_samples//2:].std(0)
 ##########################################################
 # Create a test model for fitting
 Y_12 = np.vstack((Y0,Y1_0))
-Y_12 = np.vstack((Y_12[:,263],Y_12[:,272]))
+Y_12 = np.vstack((Y_12[:,263],Y_12[:,273]))
 Y_12 = Y_12.transpose()
 
 T  = 6000
 
-N_samples = 25
+N_samples = 10
 
 test_model = \
     SparseBernoulliGLM_f(T, N, B, basis=basis,
@@ -156,7 +156,7 @@ fr_std3 = fr_smpls[N_samples // 2:].std(0)
 ##Static model analysis training the whole process##
 ##########################################################
 Y_12 = np.vstack((Y0,Y1_0))
-Y_12 = np.vstack((Y_12[:,263],Y_12[:,272]))
+Y_12 = np.vstack((Y_12[:,263],Y_12[:,273]))
 Y_12 = Y_12.transpose()
 
 T  = 6000
@@ -185,8 +185,8 @@ samples = zip(*samples)
 lps4, W_smpls1, A_smpls, b_smpls, fr_smpls = tuple(map(np.array, samples))
 
 # Plot the posterior mean and variance
-W_mean4 = W_smpls[N_samples // 2:].mean(0)
-W_std4 = W_smpls[N_samples//2 :].std(0)
+W_mean4 = W_smpls1[N_samples // 2:].mean(0)
+W_std4 = W_smpls1[N_samples//2 :].std(0)
 A_mean4 = A_smpls[N_samples // 2:].mean(0)
 fr_mean4 = fr_smpls[N_samples // 2:].mean(0)
 fr_std4 = fr_smpls[N_samples // 2:].std(0)
