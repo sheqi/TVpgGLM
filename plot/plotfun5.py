@@ -73,5 +73,3 @@ ax[2].set_xlabel("Iteration")
 ax[2].set_ylabel("Log Likelihood")
 ax[2].set_title('Static : Before + During')
 plt.savefig("TVpgGLM/fig/exp_N2_likhd.pdf")
-
-

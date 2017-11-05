@@ -151,7 +151,6 @@ A_mean3 = A_smpls[N_samples // 2:].mean(0)
 fr_mean3 = fr_smpls[N_samples // 2:].mean(0)
 fr_std3 = fr_smpls[N_samples // 2:].std(0)
 
-
 ##########################################################
 ##Static model analysis training the whole process##
 ##########################################################
