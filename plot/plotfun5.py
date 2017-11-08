@@ -17,34 +17,40 @@ plt.ion()
 color = harvard_colors()[0:10]
 
 with open('TVpgGLM/results/exp_tv_N2.pickle', 'rb') as f:
-     lps1, lps2, lps3, lps4, \
-     W_mean1, W_mean2, W_mean3, W_mean4, W_std1, W_std2, W_std3, W_std4, W_smpls, \
-     Y_1st, Y_2nd, Y_12,\
-     fr_mean1, fr_mean2, fr_mean3, fr_meaa4, fr_std1, fr_std2, fr_std3, fr_std4= pickle.load(f)
+     lps1, lps2, lps3, lps4, lps5,\
+     W_mean1, W_mean2, W_mean3, W_mean4, W_mean5, W_std1, W_std2, W_std3, W_std4, W_std5, W_smpls, \
+     Y_1st, Y_2nd, Y_3rd, Y_123,\
+     fr_mean1, fr_mean2, fr_mean3, fr_mean4, fr_mean5, fr_std1, fr_std2, fr_std3, fr_std4, fr_std5 = pickle.load(f)
 
 ########################
 ##static model weights##
 ########################
-fig, ax = plt.subplots(1,2)
-sns.heatmap(W_mean1[:,:,0], ax=ax[0], annot=True)
-sns.heatmap(W_mean2[:,:,0], ax=ax[1], annot=True)
+fig, ax = plt.subplots(1,3)
+sns.heatmap(W_mean1[:,:,0], ax=ax[0], annot=True, vmin=-2, vmax=2)
+sns.heatmap(W_mean2[:,:,0], ax=ax[1], annot=True, vmin=-2, vmax=2)
+sns.heatmap(W_mean3[:,:,0], ax=ax[2], annot=True, vmin=-2, vmax=2)
 ax[0].set_yticks([])
 ax[0].set_xticks([])
 ax[1].set_yticks([])
 ax[1].set_xticks([])
+ax[2].set_yticks([])
+ax[2].set_xticks([])
 ax[0].set_xlabel('Post')
 ax[0].set_ylabel('Pre')
 ax[0].set_title('Before Learning')
 ax[1].set_xlabel('Post')
 ax[1].set_ylabel('Pre')
 ax[1].set_title('During Learning')
+ax[2].set_xlabel('Post')
+ax[2].set_ylabel('Pre')
+ax[2].set_title('after Learning')
 plt.tight_layout()
 
 plt.savefig("TVpgGLM/fig/exp_static_N2_weights.pdf")
 ####################
 ##tv_model weights##
 ####################
-N_smpls = 10
+N_smpls = 50
 fig, ax = plt.subplots(2,2)
 for i in range(2):
     for j in range(2):
@@ -59,17 +65,17 @@ plt.savefig("TVpgGLM/fig/exp_tv_N2_weights.pdf")
 #################################
 ##plot likelihood via iteration##
 #################################
-fig, ax = plt.subplots(1,3)
-ax[0].plot(lps4)
+plt.plot(lps5)
+plt.plot(lps4)
+fig, ax = plt.subplots(1,2)
+ax[0].plot(lps5)
 ax[0].set_xlabel("Iteration")
 ax[0].set_ylabel("Log Likelihood")
 ax[0].set_title('Static')
-ax[1].plot(lps3)
+ax[0].set_ylim(-5550, -5300)
+ax[1].plot(lps4)
 ax[1].set_xlabel("Iteration")
 ax[1].set_ylabel("Log Likelihood")
 ax[1].set_title('TV')
-ax[2].plot(lps1+lps2)
-ax[2].set_xlabel("Iteration")
-ax[2].set_ylabel("Log Likelihood")
-ax[2].set_title('Static : Before + During')
+ax[1].set_ylim(-5550, -5300)
 plt.savefig("TVpgGLM/fig/exp_N2_likhd.pdf")
