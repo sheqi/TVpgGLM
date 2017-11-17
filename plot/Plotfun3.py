@@ -114,12 +114,12 @@ fig, axs = plt.subplots(N, N, sharex=True,sharey=True)
 
 for i in range(N):
     for j in range(N):
-        sns.tsplot(data=w_true[i,:,j,0],ax=axs[i, j], color=color[0])
-        sns.tsplot(data=w_est[N_smpls // 2:,i,:,j, 0],ax=axs[i,j],color=color[1])
+        sns.tsplot(data=w_true[i,:,j,0],ax=axs[i, j], color=color[4], alpha = 1)
+        sns.tsplot(data=w_est[N_smpls // 2:,i,:,j, 0],ax=axs[i,j],color=color[5], alpha = 0.9)
         axs[i,j].legend(loc="upper center", ncol=2, prop={'size':15})
         axs[i,j].set_xticklabels([])
         axs[i,j].set_yticklabels([])
 
-plt.subplots_adjust(wspace=0, hspace=0)
+plt.subplots_adjust(hspace=0.05, wspace=0.05)
 plt.tight_layout()
-fig.savefig("TVpgGLM/fig/syn_tv_N10_weights.pdf")
+fig.savefig("TVpgGLM/fig/syn_tv_N10_weights.png",  dpi=600)

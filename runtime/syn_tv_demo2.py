@@ -106,4 +106,4 @@ axs[0,0].text(50, 1.0, "True", fontsize=13, fontweight="bold", color=color[4])
 axs[0,0].text(50, 0.8, "Estimated", fontsize=13, fontweight="bold", color=color[5])
 
 with open('TVpgGLM/results/sythetic_tv_N2.pickle', 'wb') as f:
-    pickle.dump([true_model.weights, W_smpls], f)
+    pickle.dump([true_model.weights, W_smpls, Y, true_model.means[0], fr_mean, fr_std], f)

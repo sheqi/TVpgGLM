@@ -35,11 +35,11 @@ from models_tv import SparseBernoulliGLM_f
 T = 1000  # Number of time bins to generate
 N = 10  # Number of neurons
 B = 1  # Number of "basis functions"
-L = 10  # Autoregressive window of influence
+L = 2  # Autoregressive window of influence
 
 # Create a cosine basis to model smooth influence of
 # spikes on one neuron on the later spikes of others.
-basis = cosine_basis(B=B, L=L, a=1.0 / 10) / L
+basis = cosine_basis(B=B, L=L, a=1.0 / 2) / L
 
 # Generate some data from a model with self inhibition
 # The model structure has the info for the network and regression we used
