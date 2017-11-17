@@ -92,7 +92,7 @@ class _FixedWeightsMixin(_NetworkModel):
         # initialize sigma
         self._sigma[0, :, 0, :, :] = 0.0015
         self._sigma[1, :, 1, :, :] = 0.0015
-        self._sigma[1, :, 0, :, :] = 0.0015
+        self._sigma[1, :, 0, :, :] = 0.015
         self._sigma[0, :, 1, :, :] = 0.0015
 
         if (mu_self is not None) and (sigma_self is not None):

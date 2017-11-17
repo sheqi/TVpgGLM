@@ -110,8 +110,7 @@ fig.savefig("TVpgGLM/fig/syn_tv_N10_xcorr.pdf")
 ###################################
 ##True and estimated weights (p4)##
 ###################################
-plt.figure()
-fig, axs = plt.subplots(N, N)
+fig, axs = plt.subplots(N, N, sharex=True,sharey=True)
 
 for i in range(N):
     for j in range(N):
@@ -121,5 +120,6 @@ for i in range(N):
         axs[i,j].set_xticklabels([])
         axs[i,j].set_yticklabels([])
 
+plt.subplots_adjust(wspace=0, hspace=0)
 plt.tight_layout()
 fig.savefig("TVpgGLM/fig/syn_tv_N10_weights.pdf")
