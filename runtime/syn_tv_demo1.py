@@ -9,7 +9,7 @@ Created on Fri Apr  7 19:12:47 2017
 # hyperparameter variance: 0.015
 import sys
 
-sys.path.append("/Users/roger/Dropbox/pyglm-master")
+sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM")
 sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/libs")
 
 import numpy as np
@@ -88,5 +88,5 @@ fig, _, _ = plot_glm(Y, W_mean[:, 0, :, :], A_mean, fr_mean,
                     std_firingrates=3 * fr_std, title="Posterior Mean")
 
 # Saving the objects:
-#with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'wb') as f:
-#    pickle.dump([true_model.means[0], true_model.weights, fr_mean, fr_std, W_smpls, Y], f)
+with open('/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/results/sythetic_tv_N10.pickle', 'wb') as f:
+    pickle.dump([true_model.means[0], true_model.weights, fr_mean, fr_std, W_smpls, Y], f)

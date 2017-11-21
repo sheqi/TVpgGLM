@@ -12,7 +12,7 @@ import seaborn as sns
 from hips.plotting.colormaps import harvard_colors
 
 sns.set_style("white")
-paper_rc = {'lines.linewidth': 1, 'lines.markersize': 10,
+paper_rc = {'lines.linewidth': 2, 'lines.markersize': 10,
             'font.size': 15, 'axes.labelsize':15, 'axes.titlesize':15,
             'xtick.labelsize': 15, 'ytick.labelsize': 15}
 sns.set_context("paper", rc = paper_rc)
@@ -20,11 +20,11 @@ plt.ion()
 
 color = harvard_colors()[0:10]
 
-with open('TVpgGLM/results/sythetic_tv_N10.pickle', 'rb') as f:
+with open('/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/results/sythetic_tv_N10.pickle', 'rb') as f:
     fr_true, w_true, fr_est, fr_std, w_est, Y= pickle.load(f)
 
 N = 10
-N_smpls = 50
+N_smpls = 100
 
 ########################################################
 ##Illustration: layout for true/estimated network (p1)##
@@ -106,20 +106,49 @@ for i in range(N):
 
 fig.savefig("TVpgGLM/fig/syn_tv_N10_xcorr.pdf")
 
-
 ###################################
 ##True and estimated weights (p4)##
 ###################################
-fig, axs = plt.subplots(N, N, sharex=True,sharey=True)
+fig, axs = plt.subplots(N, N, sharex=True)
 
 for i in range(N):
     for j in range(N):
-        sns.tsplot(data=w_true[i,:,j,0],ax=axs[i, j], color=color[4], alpha = 1)
-        sns.tsplot(data=w_est[N_smpls // 2:,i,:,j, 0],ax=axs[i,j],color=color[5], alpha = 0.9)
+        sns.tsplot(data=w_true[i,:-50,j,0],ax=axs[i, j], color=color[2], alpha = 1)
+        sns.tsplot(data=w_est[N_smpls // 2:,i,:-50,j, 0],ax=axs[i,j],color=color[7], alpha = 1, linewidth=0.7)
         axs[i,j].legend(loc="upper center", ncol=2, prop={'size':15})
         axs[i,j].set_xticklabels([])
         axs[i,j].set_yticklabels([])
+plt.tight_layout()
+plt.subplots_adjust(hspace=0.6, wspace=0.6)
+fig.savefig("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/fig/syn_tv_N10_weights.png",  dpi=600)
+
+#################################
+## Select 4-neurons for ploting##
+#################################
+fig, axs = plt.subplots(2, 2, sharex=True)
+
+sns.tsplot(data=w_true[0,:,3,0],ax=axs[0, 0], color=color[2], alpha = 1)
+sns.tsplot(data=w_est[N_smpls // 2:,0,:,3, 0],ax=axs[0,0],color=color[7], alpha = 0.9)
+axs[0,0].set_title(r"Neuron $\#1\to$ Neuron $\#4$",fontweight="bold")
+axs[0,0].set_xlabel('Time', fontweight="bold")
+axs[0,0].set_ylabel('Weights',fontweight="bold")
+
+sns.tsplot(data=w_true[3,:,2,0],ax=axs[0, 1], color=color[2], alpha = 1)
+sns.tsplot(data=w_est[N_smpls // 2:,3,:,2, 0],ax=axs[0,1],color=color[7], alpha = 0.9)
+axs[0,1].set_title(r"Neuron $\#4\to$ Neuron $\#3$",fontweight="bold")
+axs[0,1].set_xlabel('Time', fontweight="bold")
+
+sns.tsplot(data=w_true[8,:,4,0],ax=axs[1, 0], color=color[2], alpha = 1)
+sns.tsplot(data=w_est[N_smpls // 2:,8,:,4, 0],ax=axs[1,0],color=color[7], alpha = 0.9)
+axs[1,0].set_title(r"Neuron $\#9\to$ Neuron $\#5$",fontweight="bold")
+axs[1,0].set_xlabel('Time', fontweight="bold")
+axs[1,0].set_ylabel('Weights',fontweight="bold")
+
+sns.tsplot(data=w_true[7,:,0,0],ax=axs[1, 1], color=color[2], alpha = 1)
+sns.tsplot(data=w_est[N_smpls // 2:,7,:,0, 0],ax=axs[1,1],color=color[7], alpha = 0.9)
+axs[1,1].set_title(r"Neuron $\#8\to$ Neuron $\#1$",fontweight="bold")
+axs[1,1].set_xlabel('Time', fontweight="bold")
 
 plt.subplots_adjust(hspace=0.05, wspace=0.05)
 plt.tight_layout()
-fig.savefig("TVpgGLM/fig/syn_tv_N10_weights.png",  dpi=600)
+fig.savefig("TVpgGLM/fig/syn_tv_N10_weights_select.pdf")

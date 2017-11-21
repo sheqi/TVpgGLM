@@ -82,7 +82,7 @@ class _NetworkModel(GibbsSampling):
 ### Time-varying weight model
 class _FixedWeightsMixin(_NetworkModel):
     def __init__(self, T, N, B,
-                 mu=0.0, sigma=0.0015,
+                 mu=0.0, sigma=0.001,
                  mu_self=None, sigma_self=None,
                  **kwargs):
         super(_FixedWeightsMixin, self).__init__(T, N, B)
@@ -90,10 +90,10 @@ class _FixedWeightsMixin(_NetworkModel):
         self._sigma = expand_cov(sigma, (N, T, N, B, B))
 
         # initialize sigma
-        self._sigma[0, :, 0, :, :] = 0.0015
-        self._sigma[1, :, 1, :, :] = 0.0015
-        self._sigma[1, :, 0, :, :] = 0.0015
-        self._sigma[0, :, 1, :, :] = 0.0015
+        self._sigma[0, :, 0, :, :] = 0.001
+        self._sigma[1, :, 1, :, :] = 0.001
+        self._sigma[1, :, 0, :, :] = 0.001
+        self._sigma[0, :, 1, :, :] = 0.001
 
         if (mu_self is not None) and (sigma_self is not None):
             self._mu[np.arange(N), :, np.arange(N), :] = expand_scalar(mu_self, (N, T, B))

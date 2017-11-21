@@ -108,6 +108,9 @@ class _SparseScalarRegressionBase(GibbsSampling):
             for n in range(self.N):
                 self.W[t + 1, n,] = self.a[n] * npr.multivariate_normal(self.A * self.W[t, n,], self.S_w[t, n,])
 
+        for n in range(self.N):
+            self.W[:, n, 0] = scipy.signal.savgol_filter(self.W[:, n, 0], 101, 1)
+
         # sine wave
         # Fs = 3000
         # f = 5
