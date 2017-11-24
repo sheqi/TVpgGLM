@@ -48,6 +48,12 @@ true_model = \
                             regression_kwargs=dict(rho=1, mu_w=0,
                                                    S_w=0.001, mu_b=-2, S_b=0.0001))
 
+# Generate simulated weights
+true_model.weights
+
+
+
+
 _, Y = true_model.generate(T=T, keep=True)
 
 # Plot the true model
