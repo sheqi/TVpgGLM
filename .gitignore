@@ -1,0 +1,4 @@
+
+*.pickle
+results/exp_tv_N2.pickle
+results/sythetic_tv_N10.pickle

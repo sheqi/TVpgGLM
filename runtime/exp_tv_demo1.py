@@ -9,7 +9,7 @@ sys.path.append("/Users/roger/Dropbox/pyglm-master")
 sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/libs")
 
 import numpy as np
-np.random.seed(1)
+np.random.seed(5)
 
 import pickle
 import seaborn as sns
@@ -163,7 +163,7 @@ Y_123 = Y_123.transpose()
 
 T  = 9000
 
-N_samples = 50
+N_samples = 5
 
 test_model = \
     SparseBernoulliGLM_f(T, N, B, basis=basis,

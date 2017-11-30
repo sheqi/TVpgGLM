@@ -6,7 +6,7 @@ Created on Fri Apr  7 19:13:59 2017
 @author: roger
 """
 import sys;
-sys.path.append("/Users/roger/Dropbox/pyglm-master/")
+sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM")
 sys.path.append("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/libs")
 import networks_tv
 import regression_tv
