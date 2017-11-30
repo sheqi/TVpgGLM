@@ -14,7 +14,7 @@ plt.ion()
 
 color = harvard_colors()[0:10]
 
-with open('TVpgGLM/results/sythetic_tv_N2.pickle', 'rb') as f:
+with open('/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/results/sythetic_tv_N2.pickle', 'rb') as f:
     w_true, w_est, Y, fr_est, fr_true, fr_std = pickle.load(f)
 
 # Raster and firing rate plot
@@ -38,7 +38,7 @@ for j in range(2):
     axs[j].set_xlabel("Time")
     k = k + 1
 plt.tight_layout()
-fig.savefig("TVpgGLM/fig/syn_tv_N2_raster.pdf")
+fig.savefig("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/fig/syn_tv_N2_raster.pdf")
 
 # Plot weights comparison
 N = 2
@@ -77,4 +77,4 @@ axs[1,1].axvspan(0, 1500, facecolor=color[0], alpha=alpha_back)
 
 plt.subplots_adjust(hspace=0.05, wspace=0.05)
 plt.tight_layout()
-fig.savefig("TVpgGLM/fig/syn_tv_N2_weights.pdf")
+fig.savefig("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/fig/syn_tv_N2_weights.pdf")

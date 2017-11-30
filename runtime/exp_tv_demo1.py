@@ -22,7 +22,7 @@ from models_tv import SparseBernoulliGLM_f
 
 # load experimental data from hippocampus
 import scipy.io as sio
-matfn = '/Users/roger/Dropbox/pyglm-master/Achilles_10252013/results3.mat'
+matfn = '/Users/roger/Dropbox/pyglm-master/Achilles_10252013/results4.mat'
 data = sio.loadmat(matfn)
 
 Y0 = data['pre_spk_1']
@@ -38,7 +38,7 @@ N2 = 272
 ##static model on 1st half##
 ##############################
 
-T = 3000
+T = 5000
 B = 1
 N = 2
 L = 10
@@ -158,12 +158,13 @@ fr_std3 = fr_smpls[N_samples//2:].std(0)
 ##########################################################
 # Create a test model for fitting
 Y_123 = np.vstack((Y0,Y1_0,Y2))
+#Y_123 = Y0
 Y_123 = np.vstack((Y_123[:,N1],Y_123[:,N2]))
 Y_123 = Y_123.transpose()
 
-T  = 9000
+T  = 15000
 
-N_samples = 5
+N_samples = 10
 
 test_model = \
     SparseBernoulliGLM_f(T, N, B, basis=basis,
@@ -197,7 +198,7 @@ fr_std4 = fr_smpls[N_samples // 2:].std(0)
 ##########################################################
 ##Static model analysis training the whole process##
 ##########################################################
-T  = 9000
+T  = 15000
 
 N_samples = 500
 
@@ -230,7 +231,7 @@ fr_mean5 = fr_smpls[N_samples // 2:].mean(0)
 fr_std5 = fr_smpls[N_samples // 2:].std(0)
 
 # Saving the objects:
-with open('TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
+with open('/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/results/exp_tv_N2.pickle', 'wb') as f:
     pickle.dump([lps1, lps2, lps3, lps4, lps5,
                  W_mean1, W_mean2, W_mean3, W_mean4, W_mean5, W_std1, W_std2, W_std3, W_std4, W_std5, W_smpls,
                  Y_1st, Y_2nd, Y_3rd, Y_123,

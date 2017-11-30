@@ -16,7 +16,7 @@ plt.ion()
 
 color = harvard_colors()[0:10]
 
-with open('TVpgGLM/results/exp_tv_N2.pickle', 'rb') as f:
+with open('/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/results/exp_tv_N2.pickle', 'rb') as f:
      lps1, lps2, lps3, lps4, lps5,\
      W_mean1, W_mean2, W_mean3, W_mean4, W_mean5, W_std1, W_std2, W_std3, W_std4, W_std5, W_smpls, \
      Y_1st, Y_2nd, Y_3rd, Y_123,\
@@ -46,11 +46,11 @@ ax[2].set_ylabel('Pre')
 ax[2].set_title('after Learning')
 plt.tight_layout()
 
-plt.savefig("TVpgGLM/fig/exp_static_N2_weights.pdf")
+plt.savefig("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/fig/exp_static_N2_weights.pdf")
 ####################
 ##tv_model weights##
 ####################
-N_smpls = 5
+N_smpls = 10
 fig, ax = plt.subplots(2,2)
 for i in range(2):
     for j in range(2):
@@ -61,7 +61,7 @@ for i in range(2):
             ax[i,j].set_ylabel('Weights', fontweight="bold")
 
 plt.tight_layout()
-plt.savefig("TVpgGLM/fig/exp_tv_N2_weights.pdf")
+plt.savefig("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/fig/exp_tv_N2_weights.pdf")
 #################################
 ##plot likelihood via iteration##
 #################################
@@ -79,4 +79,4 @@ ax[1].set_xlabel("Iteration")
 ax[1].set_ylabel("Log Likelihood")
 ax[1].set_title('TV')
 ax[1].set_ylim(-5550, -5300)
-plt.savefig("TVpgGLM/fig/exp_N2_likhd.pdf")
+plt.savefig("/Users/roger/Dropbox/TVpgGLM-v1/TVpgGLM/fig/exp_N2_likhd.pdf")
